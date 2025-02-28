@@ -77,10 +77,3 @@ function completeTask(event) {
 
     setTimeout(deleteTask, 1500);
 }
-
-// newbtn.addEventListener("click", function () {
-//         const span = document.createElement("span");
-//         span.classList.add("mySpan");
-//         span.innerHTML = input.value;
-//         input.replaceWith(span);
-//         input.classList.add("hide");
