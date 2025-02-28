@@ -1,7 +1,7 @@
 # Simple TO-DO project 
 
 ## Description
-I'ts a simple TO-Do project. You can add task, delete with click on task, and update a task. 
+I'ts a simple TO-Do project. You can add task, delete with a clicking on task, and update a task. 
 
 ## Technologies
 - **Language**: JavaScript, HTML, CSS
