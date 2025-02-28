@@ -5,14 +5,18 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: Poppins;
     text-align: center;
-    margin-top: 50px;
+    margin: 50px auto;
+}
+
+.hide {
+    display: none;
 }
 
 .todo-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 50px auto;
     border: 1px solid #ccc;
     border-radius: 10px;
     background: #cfdae8;
@@ -22,16 +26,25 @@ body {
 }
 
 h1 {
+    font-size: 36px;
+    color: #334e6e;
     margin-bottom: 20px;
+}
+#taskInput {
+    padding-inline: 20px;
+    font-size: 18px;
 }
 
 input {
-    width: 200px;
+    width: 50%;
     padding: 5px;
-    margin-right: 5px;
     border-radius: 20px;
 }
-button {
+.input-field {
+    margin-bottom: 20px;
+}
+button,
+.update {
     color: white;
     background: #537ba4;
     border: #537ba4;
@@ -48,7 +61,7 @@ ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 15px;
     max-width: 600px;
     padding: 10px;
     border: 0.5px solid #f0f0f0;
@@ -65,7 +78,7 @@ ul li span {
     flex-grow: 1;
     word-wrap: break-word;
     text-align: start;
-    max-width: 500px;
+    max-width: 80%;
     cursor: pointer;
 }
 

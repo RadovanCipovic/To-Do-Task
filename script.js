@@ -1,46 +1,74 @@
-const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
+const inputField = document.getElementById("taskInput");
+const addTaskBtn = document.getElementById("addBtn");
 
-let isEditing = false;
-
-// add and display task
-function addTask() {
+addTaskBtn.addEventListener("click", function () {
     const taskText = taskInput.value.trim();
-
-    if (taskText !== "") {
+    if (inputField.value !== "") {
         const li = document.createElement("li");
-
-        //span - item text
         const span = document.createElement("span");
-        span.classList.add("mySpan");
+
         span.textContent = taskText;
+        li.appendChild(span);
+        span.addEventListener("click", completeTask);
 
-        //edit button
-        const editButton = document.createElement("button");
-        editButton.classList.add("editButton");
-        editButton.textContent = "Edit";
-        editButton.addEventListener("click", editing);
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        li.appendChild(editBtn);
+        editBtn.addEventListener("click", editTask);
 
-        //appends
-        li.appendChild(span); // adding span el
-        li.appendChild(editButton); // add edit button
-        span.addEventListener("click", completeTask); // deleting (finished task)
+        const updateBtn = document.createElement("button");
+        updateBtn.classList.add("hide");
+        updateBtn.textContent = "Update";
+        li.appendChild(updateBtn);
+        updateBtn.addEventListener("click", updateTask);
 
+        //---------------------------------------------------
         if (taskList.firstChild) {
             taskList.insertBefore(li, taskList.firstChild);
         } else {
             taskList.appendChild(li);
         }
 
-        // clear input
-        taskInput.value = "";
+        inputField.value = "";
+    } else {
+        alert("You need to input a task !");
     }
+});
+
+function editTask(e) {
+    const nextButton = this.nextElementSibling;
+    const item = this.parentElement;
+    const span = item.firstElementChild;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = span.textContent;
+    input.classList.add("edit-input");
+
+    item.replaceChild(input, span);
+    this.classList.add("hide");
+    nextButton.classList.remove("hide");
 }
 
-// Completed task - delete task
+function updateTask(e) {
+    const previusButton = this.previousElementSibling;
+    const item = this.parentElement;
+    const input = item.parentElement.querySelector("input");
+
+    const span = document.createElement("span");
+    span.textContent = input.value;
+    span.addEventListener("click", completeTask);
+
+    input.replaceWith(span);
+
+    this.classList.add("hide");
+    previusButton.classList.remove("hide");
+}
+
 function completeTask(event) {
     const task = event.target;
-    task.classList.toggle("completed");
+    task.classList.add("completed");
 
     function deleteTask() {
         const taskItem = event.target.parentElement;
@@ -49,44 +77,10 @@ function completeTask(event) {
 
     setTimeout(deleteTask, 1500);
 }
-// Edit task button - maybe :)
-function editing() {
-    isEditing = true;
 
-    if (isEditing) {
-        const liElement = this.parentElement;
-
-        const spanEl = liElement.querySelector("span");
-        const newbtn = document.createElement("button");
-        const input = document.createElement("input");
-        const editBtn = document.createElement("button");
-
-        editBtn.classList.add("editButton");
-
-        //update btn
-        newbtn.classList.add("update");
-        newbtn.textContent = "Update";
-        this.replaceWith(newbtn);
-
-        //input
-        input.classList.add("inputText");
-        spanEl.replaceWith(input);
-        input.value = spanEl.textContent;
-
-        //update span with inputed text
-        newbtn.addEventListener("click", function () {
-            const editBtn = document.createElement("button");
-            editBtn.classList.add("editButton");
-            editBtn.textContent = "Edit";
-            newbtn.replaceWith(editBtn);
-
-            const span = document.createElement("span");
-            span.classList.add("mySpan");
-            span.textContent = input.value;
-            input.replaceWith(span);
-        });
-        isEditing = false;
-    } else {
-        return;
-    }
-}
+// newbtn.addEventListener("click", function () {
+//         const span = document.createElement("span");
+//         span.classList.add("mySpan");
+//         span.innerHTML = input.value;
+//         input.replaceWith(span);
+//         input.classList.add("hide");
